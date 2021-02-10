@@ -1,0 +1,76 @@
+\documentclass[12pt,letterpaper]{article}
+%\usepackage[utf8]{inputenc}
+\UseRawInputEncoding
+\usepackage[english]{babel}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+%For syntax highlighting
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{1,1,1}
+
+%%Sets different parameters
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+\lstset{style=mystyle}
+
+\title{\textbf{Department of Computer Science and Engineering}}
+\author{\textbf{S.G.Shivanirudh , 185001146, Semester VI }}
+
+\date{1 February 2021}
+
+\begin{document}
+\maketitle
+\hrule
+\section*{\center{UCS1602 - Compiler Design}}
+\hrule 
+\bigskip\bigskip
+
+%Assignment name
+\subsection*{\center{\textbf{Exercise 1: Lexical Analyser using C}}}
+
+%Objective
+\subsection*{\flushleft{Objective:}}
+\begin{flushleft}
+    Develop a scanner that will recognize all the above specified tokens. Test your program for all specified tokens. Example input and output specification is given below.    
+\end{flushleft}
+
+%Code
+\subsection*{\flushleft{Code:}}
+\begin{flushleft}
+\lstinputlisting[language = C, firstline = 1, lastline = 382]{lexer.c}
+\end{flushleft}
+
+\newpage
+%Output
+\subsection*{\flushleft{Input file:}}
+\begin{flushleft}
+    \lstinputlisting[language=C]{file.c}
+\end{flushleft}
+\newpage
+\subsection*{\flushleft{Output:}}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = \textwidth]{OP.png}
+\end{figure}
+\hrule
+\end{document}
