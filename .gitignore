@@ -53,6 +53,7 @@ dkms.conf
 
 #Output files
 ^?$
+*.png
 
 #Tex files
 *.aux
