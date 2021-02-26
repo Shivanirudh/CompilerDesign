@@ -9,21 +9,22 @@ int elim_lr(char* production){
 
     char* token = strtok(prod, "->");
     char sym = token[0];
-    printf("%c->", sym);
 
     token = strtok(NULL, "->");
 
     char* tok = strtok(token, "|");
-    int flag = 0;
-    char *alpha = (char*)calloc(100, sizeof(char));
+    char *alpha[10];
+    int al = 0;
+    
     char *beta[10];
     int be = 0;
     while(tok){
-        if(flag == 0){
+        if(sym == tok[0]){
+            alpha[al] = (char *)calloc(100, sizeof(char));
             for(int i = 1; tok[i]; i++){
-                alpha[i-1] = tok[i];
+                alpha[al][i-1] = tok[i];
             }
-            flag = 1;
+            al++;
         }
         else{
             beta[be++] = (char*)calloc(100, sizeof(char));
@@ -37,13 +38,20 @@ int elim_lr(char* production){
         return 0;
     }
 
+    printf("%c -> ", sym);
     for(int i = 0;i<be;i++){
         printf("%s%c'", beta[i], sym);
         if(i+1 != be)
             printf(" | ");
     }
     printf("\n");
-    printf("%c'->epsilon| %s%c'\n", sym, alpha, sym);
+    printf("%c' -> epsilon| ", sym);
+    for (int i = 0; i < al;i++){
+        printf("%s%c'", alpha[i], sym);
+        if(i+1 != al)
+            printf(" | ");
+    }
+    printf("\n");
 }
 
 int check_lr(char* production){
