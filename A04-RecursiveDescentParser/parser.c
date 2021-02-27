@@ -2,49 +2,87 @@
 #include<string.h>
 #include<stdlib.h>
 
+void tab(int val){
+    while(val--)
+        printf("\t");
+}
+
 int F(char *str, int *look_ahead){
-    printf("\nEnter F\n");
     if (str[*look_ahead] == 'i')
     {
-        printf("F: i matched");
-        *look_ahead++;
+        tab((*look_ahead) + 1);
+        printf("F: i matched\n");
+        (*look_ahead)++;
     }
-    printf("\nExit F\n");
 }
 
 int Tprime(char *str, int *look_ahead){
-    printf("\nEnter T'\n");
     if(str[*look_ahead] == '*'){
-        printf("T': * matched");
-        *look_ahead++;
+        tab((*look_ahead) + 1);
+        printf("T': * matched\n");
+        (*look_ahead)++;
+
+        tab((*look_ahead) + 1);
+        printf("Enter F\n");
         F(str, look_ahead);
+        tab((*look_ahead) + 1);
+        printf("Exit F\n");
+
+        tab((*look_ahead) + 1);
+        printf("Enter T'\n");
         Tprime(str, look_ahead);
+        tab((*look_ahead) + 1);
+        printf("Exit T'\n");
         
     }
-    printf("\nExit T'\n");
 }
 
 int T(char *str, int *look_ahead){
-    printf("\nEnter T\n");
+    tab((*look_ahead) + 1);
+    printf("Enter F\n");
     F(str, look_ahead);
+    tab((*look_ahead) + 1);
+    printf("Exit F\n");
+    
+    tab((*look_ahead) + 1);
+    printf("Enter T'\n");
     Tprime(str, look_ahead);
-    printf("\nExit T\n");
+    tab((*look_ahead) + 1);
+    printf("Exit T'\n");
 }
 int Eprime(char *str, int *look_ahead){
-    printf("\nEnter E'\n");
+    
     if(str[*look_ahead] == '+'){
-        printf("E': + matched");
-        *look_ahead++;
+        tab((*look_ahead) + 1);
+        printf("E': + matched\n");
+        (*look_ahead)++;
+        
+        tab((*look_ahead) + 1);
+        printf("Enter T\n");
         T(str, look_ahead);
+        tab((*look_ahead) + 1);
+        printf("Exit T\n");
+
+        tab((*look_ahead) + 1);
+        printf("Enter E'\n");
         Eprime(str, look_ahead);
+        tab((*look_ahead) + 1);
+        printf("Exit E'\n");
     }
-    printf("\nExit E'\n");
+    printf("Exit E'\n");
 }
 int E(char *str, int *look_ahead){
-    printf("\nEnter E\n");
+    tab((*look_ahead) + 1);
+    printf("Enter T\n");
     T(str, look_ahead);
+    tab((*look_ahead) + 1);
+    printf("Exit T\n");
+    
+    tab((*look_ahead) + 1);
+    printf("Enter E'\n");
     Eprime(str, look_ahead);
-    printf("\nExit E\n");
+    tab((*look_ahead) + 1);
+    printf("Exit E'\n");
 }
 
 int main(){
@@ -65,7 +103,9 @@ int main(){
     scanf(" %s", str);
     strcat(str, "$");
     int look_ahead = 0;
+    printf("Enter E\n");
     E(str, &look_ahead);
+    printf("Exit E\n");
     if (str[look_ahead] == '$')
         printf("\nSuccess");
     else
