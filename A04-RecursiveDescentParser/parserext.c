@@ -46,12 +46,12 @@ int F(char *str, int *look_ahead, int level)
         printf("F: ( matched\n");
         (*look_ahead)++;
         E(str, look_ahead, level + 1);
-    }
-    else if (str[*look_ahead] == ')')
-    {
-        tab(level);
-        printf("F: ) matched\n");
-        (*look_ahead)++;
+        if (str[*look_ahead] == ')')
+        {
+            tab(level);
+            printf("F: ) matched\n");
+            (*look_ahead)++;
+        }
     }
 }
 

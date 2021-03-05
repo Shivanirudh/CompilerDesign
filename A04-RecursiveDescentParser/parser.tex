@@ -1,0 +1,95 @@
+\documentclass[12pt,letterpaper]{article}
+%\usepackage[utf8]{inputenc}
+\UseRawInputEncoding
+\usepackage[english]{babel}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+%For syntax highlighting
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{1,1,1}
+
+%%Sets different parameters
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+\lstset{style=mystyle}
+
+\title{\textbf{Department of Computer Science and Engineering}}
+\author{\textbf{S.G.Shivanirudh , 185001146, Semester VI }}
+
+\date{26 February 2021}
+
+\begin{document}
+\maketitle
+\hrule
+\section*{\center{UCS1602 - Compiler Design}}
+\hrule 
+\bigskip\bigskip
+
+%Assignment name
+\subsection*{\center{\textbf{Exercise 4: Recursive Descent Parser using C}}}
+
+%Objective
+\subsection*{\flushleft{Objective:}}
+\begin{flushleft}
+    Write a program in C to construct Recursive Descent Parser for the following grammar which is for arithmetic expression involving + and   *.
+    Check the   Grammar   for   left   recursion   and   convert   into suitable for this parser. 
+    Write recursive functions for every non-terminal.   Call   the   function   for   start   symbol   of   the   Grammar   in main().
+    Extend this parser to include division, subtraction and parenthesis operators
+\end{flushleft}
+
+%Code
+\subsection*{\flushleft{Code:}}
+\begin{flushleft}
+\lstinputlisting[language = C, firstline = 1, lastline = 208]{parserext.c}
+\end{flushleft}
+
+\newpage
+%Output
+\subsection*{\flushleft{Output:}}
+\subsubsection*{\flushleft{Success scenario:}}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = \textwidth]{Pics/Success1.png}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width = \textwidth]{Pics/Success2.png}
+\end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[width = \textwidth]{Pics/Success3.png}
+\end{figure}
+
+\newpage
+\subsubsection*{\flushleft{Failure scenario:}}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width = \textwidth]{Pics/Failure1.png}
+\end{figure}
+\newpage
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = \textwidth]{Pics/Failure2.png}
+\end{figure}
+\hrule
+\end{document}
