@@ -1,0 +1,102 @@
+\documentclass[12pt,letterpaper]{article}
+%\usepackage[utf8]{inputenc}
+\UseRawInputEncoding
+\usepackage[english]{babel}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+%For syntax highlighting
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{1,1,1}
+
+%%Sets different parameters
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+\lstset{style=mystyle}
+
+\title{\textbf{Department of Computer Science and Engineering}}
+\author{\textbf{S.G.Shivanirudh , 185001146, Semester VI }}
+
+\date{5 March 2021}
+
+\begin{document}
+\maketitle
+\hrule
+\section*{\center{UCS1602 - Compiler Design}}
+\hrule 
+\bigskip\bigskip
+
+%Assignment name
+\subsection*{\center{\textbf{Exercise 5: Implementation of Desk Calculator using YaccTool}}}
+
+%Objective
+\subsection*{\flushleft{Objective:}}
+\begin{flushleft}
+    Write Lex program to recognize relevant tokens required for the Yacc parser to implement desk calculator. 
+    Write the Grammar for the expression involving the operators.
+    Precedence and associativity has to be preserved. Yacc is available as a command in linux. 
+    The grammar should have non-terminals E, Op and a terminal id.
+\end{flushleft}
+
+%Code
+\subsection*{\flushleft{Code:}}
+\subsubsection*{\flushleft{Lex:}}
+\begin{flushleft}
+\lstinputlisting{calc.l}
+\end{flushleft}
+\subsubsection*{\flushleft{Yacc:}}
+\begin{flushleft}
+\lstinputlisting{calc.y}
+\end{flushleft}
+
+\newpage
+%Output
+\subsection*{\flushleft{Output:}}
+\subsubsection*{\flushleft{Arithmetic Expression:}}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = \textwidth]{Pics/AE.png}
+\end{figure}
+
+\newpage
+\subsubsection*{\flushleft{Boolean Expression:}}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = \textwidth]{Pics/BoolExp1.png}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = \textwidth]{Pics/BoolExp2.png}
+\end{figure}
+
+\newpage
+\subsubsection*{\flushleft{Bitwise operation:}}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = \textwidth]{Pics/BitExp1.png}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = \textwidth]{Pics/BitExp2.png}
+\end{figure}
+\hrule
+\end{document}
