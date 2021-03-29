@@ -52,7 +52,18 @@ extern int yydebug;
     NUM = 258,
     ID = 259,
     KW = 260,
-    AOP = 261
+    AOP = 261,
+    IF = 262,
+    ELSE = 263,
+    ROP = 264,
+    POPEN = 265,
+    PCLOSE = 266,
+    BOPEN = 267,
+    BCLOSE = 268,
+    FOR = 269,
+    WHILE = 270,
+    SEP = 271,
+    CHANGE_OP = 272
   };
 #endif
 /* Tokens.  */
@@ -60,6 +71,17 @@ extern int yydebug;
 #define ID 259
 #define KW 260
 #define AOP 261
+#define IF 262
+#define ELSE 263
+#define ROP 264
+#define POPEN 265
+#define PCLOSE 266
+#define BOPEN 267
+#define BCLOSE 268
+#define FOR 269
+#define WHILE 270
+#define SEP 271
+#define CHANGE_OP 272
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
