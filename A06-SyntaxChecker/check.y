@@ -60,8 +60,16 @@ int yyerror (char const* s)
     flag=1; 
 }
 
-int main (void){
-    printf("\nEnter expression: ");
+int main(int argc, char **argv){
+    if(argc != 2){
+        fprintf(stderr, "Enter file name as argument!\n");
+        return 1;
+    }
+    yyin = fopen(argv[1], "rt");
+    if (!yyin){
+        fprintf(stderr, "File not found!\n");
+        return 2;
+    }
     yyparse();
     if(flag==0) 
         printf("\nSyntactically correct\n"); 

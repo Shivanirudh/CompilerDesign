@@ -1,0 +1,96 @@
+\documentclass[12pt,letterpaper]{article}
+%\usepackage[utf8]{inputenc}
+\UseRawInputEncoding
+\usepackage[english]{babel}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+%For syntax highlighting
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{1,1,1}
+
+%%Sets different parameters
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+\lstset{style=mystyle}
+
+\title{\textbf{Department of Computer Science and Engineering}}
+\author{\textbf{S.G.Shivanirudh , 185001146, Semester VI }}
+
+\date{29 March 2021}
+
+\begin{document}
+\maketitle
+\hrule
+\section*{\center{UCS1602 - Compiler Design}}
+\hrule 
+\bigskip\bigskip
+
+%Assignment name
+\subsection*{\center{\textbf{Exercise 6:Implementation of Syntax Checker using YaccTool}}}
+
+%Objective
+\subsection*{\flushleft{Objective:}}
+\begin{flushleft}
+    Develop a Syntax checker to recognize the tokens necessary for the following statements by writing suitable grammars
+    Assignment statement
+    Conditional statement
+    Looping statement
+\end{flushleft}
+
+%Code
+\subsection*{\flushleft{Code:}}
+\subsubsection*{\flushleft{Lex:}}
+\begin{flushleft}
+\lstinputlisting{check.l}
+\end{flushleft}
+\subsubsection*{\flushleft{Yacc:}}
+\begin{flushleft}
+\lstinputlisting{check.y}
+\end{flushleft}
+
+\newpage
+%Output
+\subsection*{\flushleft{Output:}}
+
+\subsubsection*{\flushleft{Correct syntax:}}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = \textwidth]{Pics/op1.png}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = \textwidth]{Pics/op2.png}
+\end{figure}
+
+\newpage
+\subsubsection*{\flushleft{Incorrect syntax:}}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = \textwidth]{Pics/op3.png}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width = \textwidth]{Pics/op4.png}
+\end{figure}
+\hrule
+\end{document}

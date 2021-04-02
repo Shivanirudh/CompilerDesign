@@ -848,17 +848,17 @@ YY_RULE_SETUP
 case 18:
 /* rule 18 can match eol */
 YY_RULE_SETUP
-#line 33 "check.l"
-return 0; 
+#line 32 "check.l"
+
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 35 "check.l"
+#line 34 "check.l"
 return yytext[0]; 
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 36 "check.l"
+#line 35 "check.l"
 ECHO;
 	YY_BREAK
 #line 865 "lex.yy.c"
@@ -1866,7 +1866,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 36 "check.l"
+#line 35 "check.l"
 
 int yywrap(){
     return 1;

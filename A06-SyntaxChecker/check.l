@@ -29,8 +29,7 @@ id [a-z][a-z]*
 [+\-^*/,().] {return *yytext;}
 [\t]
 [ ]  
-
-[\n] return 0; 
+[\n]
 
 . return yytext[0]; 
 %%
