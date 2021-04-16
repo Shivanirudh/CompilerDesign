@@ -66,7 +66,7 @@
 
 
 /* First part of user prologue.  */
-#line 1 "ex.y"
+#line 1 "gen.y"
 
     #include <stdio.h>
     #include <stdlib.h>
@@ -77,32 +77,30 @@
     int yyerror(char *);
     int yywrap();
 
-    int vars = 0, labels = 0;
+    int tmp = 0;
+    int jump = 0;
 
     struct info{
         char *var;
         char *code;
-        int intval;
-        float floatval;
-        char charval;
+        int int_val;
+        float float_val;
+        char char_val;
     };
 
     typedef struct info node;
 
     node *makeNode(){
-        //creating a new node to store intermediate code
-
-        node *n = (node *)malloc(sizeof(node));
-        n->intval = 0;
-        n->floatval = 0;
-        n->charval = 0;
-        n->var = (char *)malloc(50 * sizeof(char));
-        n->code = (char *)malloc(5000 * sizeof(char));
-
+        node *n = (node*)calloc(1, sizeof(node));
+        n->int_val = 0;
+        n->float_val = 0;
+        n->char_val = 0;
+        n->var = (char*)calloc(50, sizeof(char));
+        n->code = (char*)calloc(5000, sizeof(char));
         return n;
     }
 
-#line 106 "y.tab.c"
+#line 104 "y.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -152,49 +150,55 @@ extern int yydebug;
   {
     BGN = 258,
     END = 259,
-    IF = 260,
-    THEN = 261,
-    ELSE = 262,
-    INT = 263,
-    CHAR = 264,
-    REAL = 265,
-    CHCONST = 266,
-    VAR = 267,
-    NUM = 268,
-    RELOP = 269,
-    ADDOP = 270,
-    MULOP = 271
+    INT = 260,
+    REAL = 261,
+    CHAR = 262,
+    INT_CONST = 263,
+    REAL_CONST = 264,
+    CHAR_CONST = 265,
+    ID = 266,
+    IF = 267,
+    ELSE = 268,
+    THEN = 269,
+    REL_OP = 270,
+    POPEN = 271,
+    PCLOSE = 272,
+    MUL_OP = 273,
+    ADD_OP = 274
   };
 #endif
 /* Tokens.  */
 #define BGN 258
 #define END 259
-#define IF 260
-#define THEN 261
-#define ELSE 262
-#define INT 263
-#define CHAR 264
-#define REAL 265
-#define CHCONST 266
-#define VAR 267
-#define NUM 268
-#define RELOP 269
-#define ADDOP 270
-#define MULOP 271
+#define INT 260
+#define REAL 261
+#define CHAR 262
+#define INT_CONST 263
+#define REAL_CONST 264
+#define CHAR_CONST 265
+#define ID 266
+#define IF 267
+#define ELSE 268
+#define THEN 269
+#define REL_OP 270
+#define POPEN 271
+#define PCLOSE 272
+#define MUL_OP 273
+#define ADD_OP 274
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 46 "ex.y"
+#line 46 "gen.y"
 
-    int intval;
-    float floatval;
-    char ch;
+    int int_val;
+    float float_val;
+    char char_val;
     char *str;
     struct info *Node;
 
-#line 198 "y.tab.c"
+#line 202 "y.tab.c"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -513,10 +517,10 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  7
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   40
+#define YYLAST   42
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  22
+#define YYNTOKENS  23
 /* YYNNTS -- Number of nonterminals.  */
 #define YYNNTS  16
 /* YYNRULES -- Number of rules.  */
@@ -525,7 +529,7 @@ union yyalloc
 #define YYNSTATES  55
 
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   271
+#define YYMAXUTOK   274
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -541,9 +545,9 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-      20,    21,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,    17,    18,
-       2,    19,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,    20,    21,
+       2,    22,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -564,7 +568,7 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15,    16
+      15,    16,    17,    18,    19
 };
 
 #if YYDEBUG
@@ -572,9 +576,9 @@ static const yytype_int8 yytranslate[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    66,    66,    71,    76,    81,    86,    91,    97,   104,
-     111,   119,   126,   133,   141,   146,   151,   155,   160,   169,
-     174,   182,   186,   191,   199,   204,   210,   217,   224,   232,
-     240
+     111,   119,   125,   131,   139,   143,   148,   151,   156,   165,
+     170,   177,   180,   185,   192,   197,   202,   208,   214,   222,
+     230
 };
 #endif
 
@@ -583,12 +587,12 @@ static const yytype_uint8 yyrline[] =
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
 {
-  "$end", "error", "$undefined", "BGN", "END", "IF", "THEN", "ELSE",
-  "INT", "CHAR", "REAL", "CHCONST", "VAR", "NUM", "RELOP", "ADDOP",
-  "MULOP", "':'", "';'", "'='", "'('", "')'", "$accept", "Program",
-  "Structure", "Declarations", "Declaration", "Type", "Value",
-  "Statements", "Statement", "Assignment", "Expr", "E", "T", "F",
-  "Conditional", "Condition", YY_NULLPTR
+  "$end", "error", "$undefined", "BGN", "END", "INT", "REAL", "CHAR",
+  "INT_CONST", "REAL_CONST", "CHAR_CONST", "ID", "IF", "ELSE", "THEN",
+  "REL_OP", "POPEN", "PCLOSE", "MUL_OP", "ADD_OP", "':'", "';'", "'='",
+  "$accept", "program", "structure", "decl_stmts", "decl_stmt", "type",
+  "value", "stmts", "stmt", "assn_stmt", "expr", "E", "T", "F",
+  "cond_stmt", "condition", YY_NULLPTR
 };
 #endif
 
@@ -598,8 +602,8 @@ static const char *const yytname[] =
 static const yytype_int16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266,   267,   268,   269,   270,   271,    58,    59,    61,
-      40,    41
+     265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
+      58,    59,    61
 };
 # endif
 
@@ -617,12 +621,12 @@ static const yytype_int16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      10,    -5,    23,   -23,    21,    10,     6,   -23,    -3,   -23,
-     -23,   -23,   -23,   -11,     7,     9,    22,    -3,   -23,   -23,
-     -23,     0,    -7,    -7,   -23,   -23,   -23,   -23,   -23,    11,
-     -23,   -23,   -23,   -23,    16,   -23,     2,     5,     4,    13,
-     -23,    -7,    -7,    -7,    27,   -23,   -23,   -23,   -23,    -3,
-      28,    -3,    32,    33,   -23
+      -2,    -7,    20,   -23,    18,    -2,     1,   -23,     3,   -23,
+     -23,   -23,   -23,    -5,     4,     9,    23,     3,   -23,   -23,
+     -23,     2,    -6,    -6,   -23,   -23,   -23,   -23,   -23,     7,
+     -23,   -23,   -23,   -23,     8,   -23,     0,     5,    15,    14,
+     -23,   -23,    -6,    -6,    -6,    19,   -23,   -23,   -23,     3,
+      22,     3,    32,    25,   -23
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -631,25 +635,25 @@ static const yytype_int8 yypact[] =
 static const yytype_int8 yydefact[] =
 {
        0,     0,     0,     2,     0,     5,     0,     1,     0,     4,
-       8,    10,     9,     0,     0,     0,     0,    15,    16,    17,
-       6,     0,     0,     0,     3,    14,    12,    13,    11,     0,
-      27,    28,    25,    26,     0,    19,    21,    22,     0,     0,
-       7,     0,     0,     0,     0,    18,    30,    23,    20,     0,
+       8,     9,    10,     0,     0,     0,     0,    15,    16,    17,
+       6,     0,     0,     0,     3,    14,    11,    12,    13,     0,
+      26,    27,    28,    25,     0,    19,    21,    22,     0,     0,
+       7,    18,     0,     0,     0,     0,    20,    23,    30,     0,
        0,     0,     0,     0,    29
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -23,   -23,   -23,    34,   -23,   -23,   -23,   -17,   -23,   -23,
-     -22,    -6,   -23,    -2,   -23,   -23
+     -23,   -23,   -23,    33,   -23,   -23,   -23,   -17,   -23,   -23,
+     -22,    -3,   -23,    -1,   -23,   -23
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
       -1,     2,     3,     4,     5,    13,    29,    16,    17,    18,
-      34,    35,    36,    37,    19,    38
+      34,    35,    36,    37,    19,    39
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -657,41 +661,41 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      25,    39,    14,    30,    31,    32,    33,    20,    21,    15,
-      26,    27,     6,    28,    10,    11,    12,    42,    43,    46,
-     -24,   -24,     1,     7,     8,    44,    24,    22,    23,    40,
-      41,    45,    50,    49,    52,    51,    53,    48,    54,     9,
-      47
+      25,    38,    30,    31,    32,    33,    10,    11,    12,     1,
+      26,    27,    28,     6,    14,    15,    20,    21,    42,    43,
+       7,     8,    48,   -24,   -24,    23,    22,    24,    40,    41,
+      44,    45,    50,    49,    52,    51,    53,    54,     9,    46,
+       0,     0,    47
 };
 
 static const yytype_int8 yycheck[] =
 {
-      17,    23,     5,    10,    11,    12,    13,    18,    19,    12,
-      10,    11,    17,    13,     8,     9,    10,    15,    16,    41,
-      15,    16,    12,     0,     3,    21,     4,    20,    19,    18,
-      14,    18,    49,     6,    51,     7,     4,    43,     5,     5,
-      42
+      17,    23,     8,     9,    10,    11,     5,     6,     7,    11,
+       8,     9,    10,    20,    11,    12,    21,    22,    18,    19,
+       0,     3,    44,    18,    19,    16,    22,     4,    21,    21,
+      15,    17,    49,    14,    51,    13,     4,    12,     5,    42,
+      -1,    -1,    43
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,    12,    23,    24,    25,    26,    17,     0,     3,    25,
-       8,     9,    10,    27,     5,    12,    29,    30,    31,    36,
-      18,    19,    20,    19,     4,    29,    10,    11,    13,    28,
-      10,    11,    12,    13,    32,    33,    34,    35,    37,    32,
-      18,    14,    15,    16,    21,    18,    32,    35,    33,     6,
-      29,     7,    29,     4,     5
+       0,    11,    24,    25,    26,    27,    20,     0,     3,    26,
+       5,     6,     7,    28,    11,    12,    30,    31,    32,    37,
+      21,    22,    22,    16,     4,    30,     8,     9,    10,    29,
+       8,     9,    10,    11,    33,    34,    35,    36,    33,    38,
+      21,    21,    18,    19,    15,    17,    34,    36,    33,    14,
+      30,    13,    30,     4,    12
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    22,    23,    24,    25,    25,    26,    26,    27,    27,
-      27,    28,    28,    28,    29,    29,    30,    30,    31,    32,
-      33,    33,    33,    34,    34,    35,    35,    35,    35,    36,
-      37
+       0,    23,    24,    25,    26,    26,    27,    27,    28,    28,
+      28,    29,    29,    29,    30,    30,    31,    31,    32,    33,
+      34,    34,    34,    35,    35,    36,    36,    36,    36,    37,
+      38
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
@@ -1396,290 +1400,290 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 66 "ex.y"
-                             {
-                        printf("\nL%-5d - |\n%s", 0, (yyval.Node)->code);
-                    }
-#line 1404 "y.tab.c"
+#line 66 "gen.y"
+                   {
+            printf("\nL%-5d - |\n%s", 0, (yyval.Node)->code);
+          }
+#line 1408 "y.tab.c"
     break;
 
   case 3:
-#line 71 "ex.y"
-                                                   {
-                        sprintf((yyval.Node)->code, "%s%10s\n%s", (yyvsp[-3].Node)->code, "|", (yyvsp[-1].Node)->code);
-                    }
-#line 1412 "y.tab.c"
+#line 71 "gen.y"
+                                    {
+                sprintf((yyval.Node)->code, "%s%10s\n%s", (yyvsp[-3].Node)->code, "|", (yyvsp[-1].Node)->code);
+            }
+#line 1416 "y.tab.c"
     break;
 
   case 4:
-#line 76 "ex.y"
-                                            {
-                        (yyval.Node) = makeNode();
-                        sprintf((yyval.Node)->code, "%s%s", (yyvsp[-1].Node)->code, (yyvsp[0].Node)->code);
-                    }
-#line 1421 "y.tab.c"
+#line 76 "gen.y"
+                                 {
+                (yyval.Node) = makeNode();
+                sprintf((yyval.Node)->code, "%s%s", (yyvsp[-1].Node)->code, (yyvsp[0].Node)->code);
+             }
+#line 1425 "y.tab.c"
     break;
 
   case 5:
-#line 81 "ex.y"
-                               {
-                        (yyval.Node) = (yyvsp[0].Node);
-                    }
-#line 1429 "y.tab.c"
+#line 81 "gen.y"
+                      {
+                (yyval.Node) = (yyvsp[0].Node);
+             }
+#line 1433 "y.tab.c"
     break;
 
   case 6:
-#line 86 "ex.y"
-                                     {
-                        (yyval.Node) = makeNode();
-                        sprintf((yyval.Node)->code, "%10s %-5s := %s\n", "|", (yyvsp[-3].str), (yyvsp[-1].Node)->var);
-                    }
-#line 1438 "y.tab.c"
+#line 86 "gen.y"
+                            {
+                (yyval.Node) = makeNode();
+                sprintf((yyval.Node)->code, "%10s %-5s := %s\n", "|", (yyvsp[-3].str), (yyvsp[-1].Node)->var);
+            }
+#line 1442 "y.tab.c"
     break;
 
   case 7:
-#line 91 "ex.y"
-                                              {
-                        (yyval.Node) = makeNode();
-                        sprintf((yyval.Node)->code, "%10s %-5s := %s\n", "|", (yyvsp[-5].str), (yyvsp[-1].Node)->var);
-                    }
-#line 1447 "y.tab.c"
+#line 91 "gen.y"
+                                     {
+                (yyval.Node) = makeNode();
+                sprintf((yyval.Node)->code, "%10s %-5s := %s\n", "|", (yyvsp[-5].str), (yyvsp[-1].Node)->var);
+            }
+#line 1451 "y.tab.c"
     break;
 
   case 8:
-#line 97 "ex.y"
-                       {
-                        (yyval.Node) = makeNode();
-                        (yyval.Node)->intval = 0;
-                        sprintf((yyval.Node)->var, "%d", 0);
-                        sprintf((yyval.Node)->code, "");
-                    }
-#line 1458 "y.tab.c"
+#line 97 "gen.y"
+          {
+            (yyval.Node) = makeNode();
+            (yyval.Node)->int_val = 0;
+            sprintf((yyval.Node)->var, "%d", 0);
+            sprintf((yyval.Node)->code, "");
+       }
+#line 1462 "y.tab.c"
     break;
 
   case 9:
-#line 104 "ex.y"
-                        {
-                        (yyval.Node) = makeNode();
-                        (yyval.Node)->floatval = 0.0;
-                        sprintf((yyval.Node)->var, "%.2f", 0.0);
-                        sprintf((yyval.Node)->code, "");
-                    }
-#line 1469 "y.tab.c"
+#line 104 "gen.y"
+           {
+            (yyval.Node) = makeNode();
+            (yyval.Node)->float_val = 0.0;
+            sprintf((yyval.Node)->var, "%.2f", 0.0);
+            sprintf((yyval.Node)->code, "");
+       }
+#line 1473 "y.tab.c"
     break;
 
   case 10:
-#line 111 "ex.y"
-                        {
-                        (yyval.Node) = makeNode();
-                        (yyval.Node)->charval = 0;
-                        sprintf((yyval.Node)->var, "%s", "NULL");
-                        sprintf((yyval.Node)->code, "");
-                    }
-#line 1480 "y.tab.c"
+#line 111 "gen.y"
+           {
+            (yyval.Node) = makeNode();
+            (yyval.Node)->char_val = 0;
+            sprintf((yyval.Node)->var, "%s", "NULL");
+            sprintf((yyval.Node)->code, "");
+       }
+#line 1484 "y.tab.c"
     break;
 
   case 11:
-#line 119 "ex.y"
-                       {
-                        (yyval.Node) = makeNode();
-                        (yyval.Node)->intval = (yyvsp[0].intval);
-                        sprintf((yyval.Node)->var, "%d", (yyvsp[0].intval));
-                        sprintf((yyval.Node)->code, "");
-                    }
-#line 1491 "y.tab.c"
+#line 119 "gen.y"
+                 {
+            (yyval.Node) = makeNode();
+            (yyval.Node)->int_val = (yyvsp[0].int_val);
+            sprintf((yyval.Node)->var, "%d", (yyvsp[0].int_val));
+            sprintf((yyval.Node)->code, "");
+        }
+#line 1495 "y.tab.c"
     break;
 
   case 12:
-#line 126 "ex.y"
-                        {
-                        (yyval.Node) = makeNode();
-                        (yyval.Node)->floatval = (yyvsp[0].floatval);
-                        sprintf((yyval.Node)->var, "%.2f", (yyvsp[0].floatval));
-                        sprintf((yyval.Node)->code, "");
-                    }
-#line 1502 "y.tab.c"
+#line 125 "gen.y"
+                  {
+            (yyval.Node) = makeNode();
+            (yyval.Node)->float_val = (yyvsp[0].float_val);
+            sprintf((yyval.Node)->var, "%.2f", (yyvsp[0].float_val));
+            sprintf((yyval.Node)->code, "");
+        }
+#line 1506 "y.tab.c"
     break;
 
   case 13:
-#line 133 "ex.y"
-                           {
-                        (yyval.Node) = makeNode();
-                        (yyval.Node)->intval = (yyvsp[0].ch);
-                        sprintf((yyval.Node)->var, "%c", (yyvsp[0].ch));
-                        sprintf((yyval.Node)->code, "");
-                    }
-#line 1513 "y.tab.c"
+#line 131 "gen.y"
+                  {
+            (yyval.Node) = makeNode();
+            (yyval.Node)->int_val = (yyvsp[0].char_val);
+            sprintf((yyval.Node)->var, "%c", (yyvsp[0].char_val));
+            sprintf((yyval.Node)->code, "");
+        }
+#line 1517 "y.tab.c"
     break;
 
   case 14:
-#line 141 "ex.y"
-                                        {
-                        (yyval.Node) = makeNode();
-                        sprintf((yyval.Node)->code, "%s%s", (yyvsp[-1].Node)->code, (yyvsp[0].Node)->code);
-                    }
-#line 1522 "y.tab.c"
+#line 139 "gen.y"
+                  {
+            (yyval.Node) = makeNode();
+            sprintf((yyval.Node)->code, "%s%s", (yyvsp[-1].Node)->code, (yyvsp[0].Node)->code);
+        }
+#line 1526 "y.tab.c"
     break;
 
   case 15:
-#line 146 "ex.y"
-                             {
-                        (yyval.Node) = (yyvsp[0].Node);
-                    }
-#line 1530 "y.tab.c"
+#line 143 "gen.y"
+            {
+            (yyval.Node) = (yyvsp[0].Node);
+        }
+#line 1534 "y.tab.c"
     break;
 
   case 16:
-#line 151 "ex.y"
-                               {
-                        (yyval.Node) = (yyvsp[0].Node);
-                    }
-#line 1538 "y.tab.c"
+#line 148 "gen.y"
+                 {
+        (yyval.Node) = (yyvsp[0].Node);
+       }
+#line 1542 "y.tab.c"
     break;
 
   case 17:
-#line 155 "ex.y"
-                               {
-                        (yyval.Node) = (yyvsp[0].Node);
-                    }
-#line 1546 "y.tab.c"
+#line 151 "gen.y"
+                {
+            (yyval.Node) = (yyvsp[0].Node);
+       }
+#line 1550 "y.tab.c"
     break;
 
   case 18:
-#line 160 "ex.y"
-                                    {
-                        (yyval.Node) = makeNode();
-                        char tac[100];
-                        sprintf((yyval.Node)->var, "%s", (yyvsp[-3].str));
-                        sprintf(tac, "%10s %-5s := %s\n", "|", (yyval.Node)->var, (yyvsp[-1].Node)->var);
-                        sprintf((yyval.Node)->code, "%s%s", (yyvsp[-1].Node)->code, tac);
-                    }
-#line 1558 "y.tab.c"
+#line 156 "gen.y"
+                           {
+                (yyval.Node) = makeNode();
+                char tac[100];
+                sprintf((yyval.Node)->var, "%s", (yyvsp[-3].str));
+                sprintf(tac, "%10s %-5s := %s\n", "|", (yyval.Node)->var, (yyvsp[-1].Node)->var);
+                sprintf((yyval.Node)->code, "%s%s", (yyvsp[-1].Node)->code, tac);
+            }
+#line 1562 "y.tab.c"
     break;
 
   case 19:
-#line 169 "ex.y"
-                     {
-                        (yyval.Node) = (yyvsp[0].Node);
-                    }
-#line 1566 "y.tab.c"
+#line 165 "gen.y"
+        {
+        (yyval.Node) = (yyvsp[0].Node);
+       }
+#line 1570 "y.tab.c"
     break;
 
   case 20:
-#line 174 "ex.y"
-                             {
-                        (yyval.Node) = makeNode();
-                        char tac[100];
-                        sprintf((yyval.Node)->var, "x%d", ++vars);
-                        sprintf(tac, "%10s %-5s := %s %s %s\n", "|", (yyval.Node)->var, (yyvsp[-2].Node)->var, (yyvsp[-1].str), (yyvsp[0].Node)->var);
-                        sprintf((yyval.Node)->code, "%s%s%s", (yyvsp[-2].Node)->code, (yyvsp[0].Node)->code, tac);
-                   }
-#line 1578 "y.tab.c"
+#line 170 "gen.y"
+              {
+        (yyval.Node) = makeNode();
+        char tac[100];
+        sprintf((yyval.Node)->var, "x%d", ++tmp);
+        sprintf(tac, "%10s %-5s := %s %s %s\n", "|", (yyval.Node)->var, (yyvsp[-2].Node)->var, (yyvsp[-1].str), (yyvsp[0].Node)->var);
+        sprintf((yyval.Node)->code, "%s%s%s", (yyvsp[-2].Node)->code, (yyvsp[0].Node)->code, tac);
+    }
+#line 1582 "y.tab.c"
     break;
 
   case 21:
-#line 182 "ex.y"
-                     {
-                        (yyval.Node) = (yyvsp[0].Node);
-                    }
-#line 1586 "y.tab.c"
+#line 177 "gen.y"
+     {
+        (yyval.Node) = (yyvsp[0].Node);
+    }
+#line 1590 "y.tab.c"
     break;
 
   case 22:
-#line 186 "ex.y"
-                     {
-                        (yyval.Node) = (yyvsp[0].Node);
-                    }
-#line 1594 "y.tab.c"
+#line 180 "gen.y"
+     {
+        (yyval.Node) = (yyvsp[0].Node);
+    }
+#line 1598 "y.tab.c"
     break;
 
   case 23:
-#line 191 "ex.y"
-                             {
-                        (yyval.Node) = makeNode();
-                        char tac[100];
-                        sprintf((yyval.Node)->var, "x%d", ++vars);
-                        sprintf(tac, "%10s %-5s := %s %s %s\n", "|", (yyval.Node)->var, (yyvsp[-2].Node)->var, (yyvsp[-1].str), (yyvsp[0].Node)->var);
-                        sprintf((yyval.Node)->code, "%s%s%s", (yyvsp[-2].Node)->code, (yyvsp[0].Node)->code, tac);
-                    }
-#line 1606 "y.tab.c"
+#line 185 "gen.y"
+              {
+        (yyval.Node) = makeNode();
+        char tac[100];
+        sprintf((yyval.Node)->var, "x%d", ++tmp);
+        sprintf(tac, "%10s %-5s := %s %s %s\n", "|", (yyval.Node)->var, (yyvsp[-2].Node)->var, (yyvsp[-1].str), (yyvsp[0].Node)->var);
+        sprintf((yyval.Node)->code, "%s%s%s", (yyvsp[-2].Node)->code, (yyvsp[0].Node)->code, tac);
+    }
+#line 1610 "y.tab.c"
     break;
 
   case 24:
-#line 199 "ex.y"
-                     {
-                        (yyval.Node) = (yyvsp[0].Node);
-                    }
-#line 1614 "y.tab.c"
+#line 192 "gen.y"
+     {
+        (yyval.Node) = (yyvsp[0].Node);
+    }
+#line 1618 "y.tab.c"
     break;
 
   case 25:
-#line 204 "ex.y"
-                       {
-                        (yyval.Node) = makeNode();
-                        sprintf((yyval.Node)->var, "%s", (yyvsp[0].str));
-                        sprintf((yyval.Node)->code, "");
-                    }
-#line 1624 "y.tab.c"
+#line 197 "gen.y"
+      {
+        (yyval.Node) = makeNode();
+        sprintf((yyval.Node)->var, "%s", (yyvsp[0].str));
+        sprintf((yyval.Node)->code, "");
+    }
+#line 1628 "y.tab.c"
     break;
 
   case 26:
-#line 210 "ex.y"
-                       {
-                        (yyval.Node) = makeNode();
-                        (yyval.Node)->intval = (yyvsp[0].intval);
-                        sprintf((yyval.Node)->var, "%d", (yyvsp[0].intval));
-                        sprintf((yyval.Node)->code, "");
-                    }
-#line 1635 "y.tab.c"
+#line 202 "gen.y"
+               {
+            (yyval.Node) = makeNode();
+            (yyval.Node)->int_val = (yyvsp[0].int_val);
+            sprintf((yyval.Node)->var, "%d", (yyvsp[0].int_val));
+            sprintf((yyval.Node)->code, "");
+      }
+#line 1639 "y.tab.c"
     break;
 
   case 27:
-#line 217 "ex.y"
-                        {
-                        (yyval.Node) = makeNode();
-                        (yyval.Node)->floatval = (yyvsp[0].floatval);
-                        sprintf((yyval.Node)->var, "%.2f", (yyvsp[0].floatval));
-                        sprintf((yyval.Node)->code, "");
-                    }
-#line 1646 "y.tab.c"
+#line 208 "gen.y"
+                {
+            (yyval.Node) = makeNode();
+            (yyval.Node)->float_val = (yyvsp[0].float_val);
+            sprintf((yyval.Node)->var, "%.2f", (yyvsp[0].float_val));
+            sprintf((yyval.Node)->code, "");
+      }
+#line 1650 "y.tab.c"
     break;
 
   case 28:
-#line 224 "ex.y"
-                           {
-                        (yyval.Node) = makeNode();
-                        (yyval.Node)->charval = (yyvsp[0].ch);
-                        sprintf((yyval.Node)->var, "'%c'", (yyvsp[0].ch));
-                        sprintf((yyval.Node)->code, "");
-                    }
-#line 1657 "y.tab.c"
+#line 214 "gen.y"
+                {
+            (yyval.Node) = makeNode();
+            (yyval.Node)->char_val = (yyvsp[0].char_val);
+            sprintf((yyval.Node)->var, "'%c'", (yyvsp[0].char_val));
+            sprintf((yyval.Node)->code, "");
+      }
+#line 1661 "y.tab.c"
     break;
 
   case 29:
-#line 232 "ex.y"
-                                                                               {
-                        (yyval.Node) = makeNode();
-                        int condnBlock = ++labels;
-                        int endBlock = ++labels;
-                        sprintf((yyval.Node)->code, "%s%10s if %s then goto L%d\n%s%10s goto L%d\n%10s\nL%-5d - |\n%s%10s\nL%-5d - |\n", (yyvsp[-7].Node)->code, "|", (yyvsp[-7].Node)->var, condnBlock, (yyvsp[-2].Node)->code, "|", endBlock, "|", condnBlock, (yyvsp[-4].Node)->code, "|", endBlock);
-                    }
-#line 1668 "y.tab.c"
+#line 222 "gen.y"
+                                                                  {
+                (yyval.Node) = makeNode();
+                int condBlock = ++jump;
+                int endBlock = ++jump;
+                sprintf((yyval.Node)->code, "%s%10s if %s then goto L%d\n%s%10s goto L%d\n%10s\nL%-5d - |\n%s%10s\nL%-5d - |\n", (yyvsp[-7].Node)->code, "|", (yyvsp[-7].Node)->var, condBlock, (yyvsp[-2].Node)->code, "|", endBlock, "|", condBlock, (yyvsp[-4].Node)->code, "|", endBlock);
+            }
+#line 1672 "y.tab.c"
     break;
 
   case 30:
-#line 240 "ex.y"
-                                   {
-                        (yyval.Node) = makeNode();
-                        char tac[100];
-                        sprintf((yyval.Node)->var, "%s%s%s", (yyvsp[-2].Node)->var, (yyvsp[-1].str), (yyvsp[0].Node)->var);
-                        sprintf((yyval.Node)->code, "%s%s", (yyvsp[-2].Node)->code, (yyvsp[0].Node)->code);
-                    }
-#line 1679 "y.tab.c"
+#line 230 "gen.y"
+                            {
+            (yyval.Node) = makeNode();
+            char tac[100];
+            sprintf((yyval.Node)->var, "%s%s%s", (yyvsp[-2].Node)->var, (yyvsp[-1].str), (yyvsp[0].Node)->var);
+            sprintf((yyval.Node)->code, "%s%s", (yyvsp[-2].Node)->code, (yyvsp[0].Node)->code);
+       }
+#line 1683 "y.tab.c"
     break;
 
 
-#line 1683 "y.tab.c"
+#line 1687 "y.tab.c"
 
       default: break;
     }
@@ -1911,7 +1915,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 247 "ex.y"
+#line 237 "gen.y"
 
 
 int yyerror(char* str){
@@ -1924,19 +1928,11 @@ int yywrap(){
 }
 
 int main(){
-    printf("\n\t\tIntermediate Code Generation\n");
-    printf("\nYour Code:\n\n");
-    system("cat Code.txt");
-    printf("\n\nThree Address Code:\n");
+    printf("\nGiven code\n");
+    system("cat file.txt");
+    printf("\n-----------------------------------------------------------------------------------------\n");
+    printf("\nThree Address Code\n");
 
     yyparse();
     return 0;
 }
-
-/*
-Usage:
-yacc -d -Wnone TAC.y
-lex TAC.l
-gcc y.tab.c lex.yy.c -w
-./a.out < Code.txt
-*/

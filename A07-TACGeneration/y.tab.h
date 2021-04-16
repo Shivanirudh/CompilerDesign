@@ -51,49 +51,55 @@ extern int yydebug;
   {
     BGN = 258,
     END = 259,
-    IF = 260,
-    THEN = 261,
-    ELSE = 262,
-    INT = 263,
-    CHAR = 264,
-    REAL = 265,
-    CHCONST = 266,
-    VAR = 267,
-    NUM = 268,
-    RELOP = 269,
-    ADDOP = 270,
-    MULOP = 271
+    INT = 260,
+    REAL = 261,
+    CHAR = 262,
+    INT_CONST = 263,
+    REAL_CONST = 264,
+    CHAR_CONST = 265,
+    ID = 266,
+    IF = 267,
+    ELSE = 268,
+    THEN = 269,
+    REL_OP = 270,
+    POPEN = 271,
+    PCLOSE = 272,
+    MUL_OP = 273,
+    ADD_OP = 274
   };
 #endif
 /* Tokens.  */
 #define BGN 258
 #define END 259
-#define IF 260
-#define THEN 261
-#define ELSE 262
-#define INT 263
-#define CHAR 264
-#define REAL 265
-#define CHCONST 266
-#define VAR 267
-#define NUM 268
-#define RELOP 269
-#define ADDOP 270
-#define MULOP 271
+#define INT 260
+#define REAL 261
+#define CHAR 262
+#define INT_CONST 263
+#define REAL_CONST 264
+#define CHAR_CONST 265
+#define ID 266
+#define IF 267
+#define ELSE 268
+#define THEN 269
+#define REL_OP 270
+#define POPEN 271
+#define PCLOSE 272
+#define MUL_OP 273
+#define ADD_OP 274
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 46 "ex.y"
+#line 46 "gen.y"
 
-    int intval;
-    float floatval;
-    char ch;
+    int int_val;
+    float float_val;
+    char char_val;
     char *str;
     struct info *Node;
 
-#line 97 "y.tab.h"
+#line 103 "y.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
