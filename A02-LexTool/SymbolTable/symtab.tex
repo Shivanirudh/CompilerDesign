@@ -46,18 +46,18 @@
 \bigskip\bigskip
 
 %Assignment name
-\subsection*{\center{\textbf{Exercise 1: Lexical Analyser using C}}}
+\subsection*{\center{\textbf{Exercise 2:  Implementation of Lexical Analyzer}}}
 
 %Objective
 \subsection*{\flushleft{Objective:}}
 \begin{flushleft}
-    Develop a scanner that will recognize all the above specified tokens. Test your program for all specified tokens. Example input and output specification is given below.    
+    Develop a Lexical analyzer to recognize the patterns namely, identifiers,constants, comments and operators using the following regular expressions.Construct symbol table for the identifiers with the following information
 \end{flushleft}
 
 %Code
 \subsection*{\flushleft{Code:}}
 \begin{flushleft}
-\lstinputlisting[firstline = 1, lastline = 132]{symbol.l}
+\lstinputlisting{symtab.l}
 \end{flushleft}
 
 \newpage
@@ -72,5 +72,14 @@
     \centering
     \includegraphics[width = \textwidth]{OP2.png}
 \end{figure}
+\hrule
+\subsection*{\flushleft{Learning Outcomes:}}
+\begin{flushleft}
+    \renewcommand{\labelitemi}{$\textendash$}
+    \begin{itemize}
+        \item Understood the basic working of Lex tool for tokenising. 
+        \item Learnt how to construct symbol table from code using lex tool.
+    \end{itemize}
+\end{flushleft}
 \hrule
 \end{document}
