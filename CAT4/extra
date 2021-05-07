@@ -1,0 +1,67 @@
+program : code{
+           printf("\n%s", $$->code);
+          }
+code : assn_stmts assn_stmt {
+                sprintf($$->code, "%s\n%s", $1->code, $2->code);
+       }
+;
+assn_stmts : assn_stmt assn_stmts{
+                $$ = makeNode();
+                sprintf($$->code, "%s%s", $1->code, $2->code);
+             }
+           | assn_stmt {
+               $$ = $1;
+             }
+;
+assn_stmt : ID AOP expr {
+                $$ = makeNode();
+                char tac[100];
+                sprintf($$->var, "%s", $1);
+                sprintf(tac, "%-5s := %s\n", $$->var, $3->var);
+                sprintf($$->code, "%s%s", $3->code, tac);
+            }
+;
+expr : E{
+        $$ = $1;
+       }
+;
+
+E : T MUL_OP E{
+        $$ = makeNode();
+        char tac[100];
+        sprintf($$->var, "x%d", ++tmp);
+        sprintf(tac, "%-5s := %s %s %s\n", $$->var, $1->var, $2, $3->var);
+        sprintf($$->code, "%s%s%s", $1->code, $3->code, tac);
+    }
+  | T{
+        $$ = $1;
+    }      
+  | F{
+        $$ = $1;
+    }
+;
+
+T : T ADD_OP F{
+        $$ = makeNode();
+        char tac[100];
+        sprintf($$->var, "x%d", ++tmp);
+        sprintf(tac, "%-5s := %s %s %s\n", $$->var, $1->var, $2, $3->var);
+        sprintf($$->code, "%s%s%s", $1->code, $3->code, tac);
+    }
+  | F{
+        $$ = $1;
+    }
+;
+
+F : ID{
+        $$ = makeNode();
+        sprintf($$->var, "%s", $1);
+        sprintf($$->code, "");
+    }
+    | NUM{
+            $$ = makeNode();
+            $$->int_val = $1;
+            sprintf($$->var, "%d", $1);
+            sprintf($$->code, "");
+    }
+;

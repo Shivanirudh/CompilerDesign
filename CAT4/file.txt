@@ -1,0 +1,2 @@
+a = b*c/d+g
+x = y+z-s+g*z/h
